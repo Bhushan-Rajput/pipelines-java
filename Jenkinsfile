@@ -7,14 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                // Get some code from a GitHub repository
-                git branch: 'main',
-                        url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
-
-            }   
-        }
+        
         
         stage('Build'){
             steps {
@@ -26,6 +19,14 @@ pipeline {
                 
             }
             
+        }
+        stage('Checkout') {
+            steps {
+                // Get some code from a GitHub repository
+                git branch: 'main',
+                        url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
+
+            }   
         }
 
         stage('Deploy'){
