@@ -33,14 +33,14 @@ pipeline {
         stage('Deploy'){
             steps {
                 echo "Deploy step is added"
-                docker adapters: [tomcat9( 
+                deploy adapters: [tomcat9( 
                     credentialId: 'Tomcat-Deployment',
                     path: '',
                     url: 'http://172.190.107.213:8088'
                 )],
                 contextPath: 'servletexample',
-                onfailure: 'false',
-                wwar: '**/*.war'
+                onFailure: 'false',
+                war: '**/*.war'
             }
             post {
                 // If Maven was able to run the tests, even if some of the test
