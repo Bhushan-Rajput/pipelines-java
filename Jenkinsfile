@@ -37,7 +37,7 @@ pipeline {
                     credentialId: 'Tomcat-Deployment',
                     path: '',
                     url: 'http://172.190.107.213:8088'
-                )]
+                )],
                 contextPath: 'servletexample',
                 onfailure: 'false',
                 wwar: '**/*.war'
