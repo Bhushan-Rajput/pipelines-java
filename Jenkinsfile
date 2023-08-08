@@ -34,7 +34,7 @@ pipeline {
             steps {
                 echo "Deploy step is added"
                 deploy adapters: [tomcat9( 
-                    credentialId: 'Tomcat-Deployment',
+                    credentialsId: 'Tomcat_Deployment',
                     path: '',
                     url: 'http://172.190.107.213:8088'
                 )],
