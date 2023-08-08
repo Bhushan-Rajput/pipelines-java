@@ -38,7 +38,7 @@ pipeline {
                     path: '',
                     url: 'http://172.190.107.213:8088'
                 )]
-                contextPath: 'servlet1',
+                contextPath: 'servletexample',
                 onfailure: 'false',
                 wwar: '**/*.war'
             }
