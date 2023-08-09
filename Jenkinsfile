@@ -11,7 +11,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main',
-                    url: ''
+                    url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
             }
 
             post {
