@@ -7,53 +7,59 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Prepare') {
             steps {
                 // Get some code from a GitHub repository
                 git branch: 'main',
-                        url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
-
-            }   
-        }
-        
-        
-        stage('Build'){
-            steps {
-                // Run Maven on a Unix agent.
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
-
-                // To run Maven on a Windows agent, use
-                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
-                
+                    url: ''
             }
-            
-        }
-        
 
-        stage('Deploy'){
-            steps {
-                echo "Deploy step is added"
-                deploy adapters: [tomcat9( 
-                    credentialsId: 'Tomcat_Deployment2',
-                    path: '',
-                    url: 'http://172.190.107.213:8088'
-                )],
-                contextPath: 'servletexample',
-                onFailure: 'false',
-                war: '**/*.war'
-            }
             post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
                 success {
-                    junit '**/target/surefire-reports/TEST-*.xml'
-                    archiveArtifacts 'target/*.war'
+                    echo "Preparation is successfull ! :)"
                 }
             }
         }
-            
-            
-            
-        
+
+        stage('Build'){
+            steps{
+                sh mvn compile
+            }
+
+            post{
+                success{
+                echo "Build is succesfull ! :)"
+                }
+            }
+        }
+
+        stage('Test'){
+            steps{                
+                    sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.war'
+            }
+            post{
+                success{
+                echo "Test is done" 
+                }
+            }
+        }
+
+        stage("Email"){
+            steps{
+                echo 'Sending email notification ...'
+                mail to: 'ok22kor@bosch.com',
+                subject: "Pipeline build is successfull",
+                body: "Test email notification for pipeline"
+
+            }
+            post{
+                success{
+                    echo "Email sent !!"
+                }
+            }
+        }
+
     }
 }
