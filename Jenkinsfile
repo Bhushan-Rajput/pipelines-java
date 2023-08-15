@@ -35,11 +35,11 @@ pipeline {
             steps {
                 echo "deploy stage"
                 deploy adapters: [tomcat9 (
-                        credentialsId: 'Tomcat_Deployment2',
+                        credentialsId: 'Tomcat_admin',
                         path: '',
-                        url: 'http://172.190.107.213:8088'
+                        url: 'http://20.42.118.253:8088'
                     )],
-                    contextPath: 'servletjarb',
+                    contextPath: 'servletjary',
                     onFailure: 'false',
                     war: '**/*.war'
             }
