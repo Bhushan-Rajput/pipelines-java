@@ -12,6 +12,7 @@ pipeline {
             
             steps {
                 // Get some code from a GitHub repository
+                echo "Checkout Stage"
                 git branch: 'main',
                     url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
 
@@ -21,6 +22,7 @@ pipeline {
         stage ('Build') {
 
             steps {
+                echo "Build Stage"
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
@@ -33,13 +35,13 @@ pipeline {
         stage ('Deploy') {
 
             steps {
-                echo "deploy stage"
+                echo "Deploy Stage"
                 deploy adapters: [tomcat9 (
                         credentialsId: 'Tomcat_admin',
                         path: '',
                         url: 'http://20.42.118.253:8088'
                     )],
-                    contextPath: 'servletjarty',
+                    contextPath: 'question3',
                     onFailure: 'false',
                     war: '**/*.war'
             }
