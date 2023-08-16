@@ -22,7 +22,7 @@ pipeline {
         stage ('Build') {
 
             steps {
-                echo "Build Stage"
+                echo "Build Stage is updated"
                 // Run Maven on a Unix agent.
                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
 
