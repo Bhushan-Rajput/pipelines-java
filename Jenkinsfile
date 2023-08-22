@@ -53,7 +53,7 @@ pipeline {
 
         stage ('SonarQube Metrics') {
             steps {
-                sh ""
+                sh "mvn clean verify sonar:sonar   -Dsonar.projectKey=test1   -Dsonar.host.url=http://20.55.6.203:9000   -Dsonar.login=sqp_62c62ae2100e0e256bef53895692b7551b6c6530"
             }
         }
     }
