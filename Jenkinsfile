@@ -50,5 +50,11 @@ pipeline {
                 }
             }
         }
+
+        stage ('SonarQube Metrics') {
+            steps {
+                sh ""
+            }
+        }
     }
 }
