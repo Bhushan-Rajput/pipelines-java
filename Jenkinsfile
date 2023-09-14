@@ -11,8 +11,7 @@ pipeline {
             
             steps {
                 echo "Checkout Stage"
-                git branch: 'main',
-                    url: 'https://github.com/Bhushan-Rajput/pipelines-java.git'
+                checkout scm
 
              }
         }
@@ -28,8 +27,19 @@ pipeline {
             }
 
         }
+        stage('Install'){
+            when {
+                branch 'develop'
+            }
+            steps {
+                sh 'mvn install'
+            }
+        }
 
         stage ('Deploy') {
+            when {
+                branch 'main'
+            }
 
             steps {
                 echo "Deploy Stage"
@@ -51,10 +61,10 @@ pipeline {
             }
         }
 
-        stage ('SonarQube Metrics') {
-            steps {
-                sh "mvn clean verify sonar:sonar   -Dsonar.projectKey=test1   -Dsonar.host.url=http://20.55.6.203:9000   -Dsonar.login=sqp_62c62ae2100e0e256bef53895692b7551b6c6530"
-            }
-        }
+        // stage ('SonarQube Metrics') {
+        //     steps {
+        //         sh "mvn clean verify sonar:sonar   -Dsonar.projectKey=test1   -Dsonar.host.url=http://20.55.6.203:9000   -Dsonar.login=sqp_62c62ae2100e0e256bef53895692b7551b6c6530"
+        //     }
+        // }
     }
 }
