@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo "Build Stage is updated"
                 
-                sh "mvn -Dmaven.test.failure.ignore=true clean package"
+                sh "mvn -Dmaven.test.failure.ignore=true compile test"
 
                 
             }
@@ -43,6 +43,7 @@ pipeline {
 
             steps {
                 echo "Deploy Stage"
+                sh "mvn -Dmaven.test.failure.ignore=true clean package"
                 deploy adapters: [tomcat9 (
                         credentialsId: 'Tomcat_admin',
                         path: '',
